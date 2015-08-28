@@ -1,0 +1,21 @@
+{
+  "name": "task_priority",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "latest",
+    "angular-material": "latest",
+    "angular-route": "latest",
+    "angular-sortable-view": "~0.0.13",
+    "moment": "~2.10.6",
+    "angular-resource": "~1.4.4"
+  }
+}

@@ -1,0 +1,22 @@
+.calendar md-grid-tile md-grid-tile-footer, .calendar md-grid-tile md-grid-tile-header {
+    background: #9C27B0;
+    opacity: 0.40;
+    height: 24px;
+}
+.calendar md-grid-tile:hover {
+    cursor:pointer;
+}
+.calendar md-grid-tile-footer figcaption {
+  width: 100%;
+}
+.calendar md-grid-tile-footer figcaption h3 {
+  margin: 0;
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
+}
+
+.done-task{
+    text-decoration: line-through;
+    font-style: italic;
+}

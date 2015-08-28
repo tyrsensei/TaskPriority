@@ -1,0 +1,10 @@
+<md-grid-list md-cols="7" md-cols-sm="1" md-row-height="4:3" class="calendar" md-gutter="10px">
+    <md-grid-tile ng-repeat="day in days" class="md-whiteframe-z4">
+        <md-grid-tile-header class="md-primary">
+        </md-grid-tile-header>
+        <md-button flex href="#/{{ day.date }}"><div layout="column" layout-align="space-around center"><span><md-icon md-font-set="material-icons">assignment</md-icon>{{ day.tasks }}</span><span><md-icon md-font-set="material-icons">timelapse</md-icon>{{ day.time }} min.</span></div></md-button>
+        <md-grid-tile-footer class="md-primary">
+            <h3>{{ day.date }}</h3>
+        </md-grid-tile-footer>
+    </md-grid-tile>
+</md-grid-list>

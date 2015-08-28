@@ -1,0 +1,36 @@
+<!doctype html>
+<html ng-app="TaskPriority">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Test</title>
+    <link rel="stylesheet" href="/src/app.css">
+    <link rel="stylesheet" href="/assets/angular-material/angular-material.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="/assets/angular/angular.min.js"></script>
+    <script src="/assets/angular-aria/angular-aria.min.js"></script>
+    <script src="/assets/angular-animate/angular-animate.min.js"></script>
+    <script src="/assets/angular-material/angular-material.min.js"></script>
+    <script src="/assets/angular-route/angular-route.min.js"></script>
+    <script src="/assets/angular-resource/angular-resource.min.js"></script>
+    <script src="/assets/angular-sortable-view/src/angular-sortable-view.js"></script>
+    <script src="/assets/moment/min/moment.min.js"></script>
+    <script src="/assets/moment/locale/fr.js"></script>
+    <script src="/src/app.js"></script>
+    <script src="/src/controllers.js"></script>
+</head>
+<body layout="column" layout-fill>
+    <md-toolbar class="main-toolbar">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" href="#/">
+                <md-icon md-font-set="material-icons">assignment_late</md-icon>
+            </md-button>
+            <h2><span>TaskPriority</span></h2>
+        </div>
+    </md-toolbar>
+    <md-content flex layout="column">
+        <div ng-view flex layout-padding layout="column"></div>
+    </md-content>
+</body>
+</html>
