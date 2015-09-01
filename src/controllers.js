@@ -8,7 +8,7 @@ taskPriorityControllers.controller('CalendarCtrl', ['$scope', '$http', '$log', '
         $scope.days = [];
 
         while (!jour_courant.isAfter(dernier_jour, 'day')) {
-            $scope.days.push({date: jour_courant.format('DD/MM/YYYY'), 'tasks': 5, 'time': 180});
+            $scope.days.push({date: jour_courant.format('YYYY-MM-DD'), 'tasks': 5, 'time': 180});
 
             jour_courant.add(1, 'd');
         }
