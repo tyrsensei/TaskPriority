@@ -17,8 +17,10 @@ taskPriorityControllers.controller('CalendarCtrl', ['$scope', '$http', '$log', '
     }
 ]);
 
-taskPriorityControllers.controller('DateCtrl', ['$scope', '$routeParams', '$http', '$log', 'filterFilter',
-    function($scope, $routeParams, $http, $log, filterFilter) {
+taskPriorityControllers.controller('DateCtrl', [
+    '$scope', '$routeParams', '$http', '$log', 'filterFilter', '$mdDialog',
+    function($scope, $routeParams, $http, $log, filterFilter, $mdDialog) {
+        var dialog;
         $scope.tasks = [
             {'id': 1, 'label': 'Une tâche de test 1', 'urgent': true, 'important': true, 'done': false, 'time': 30},
             {'id': 2, 'label': 'Une tâche de test 2', 'urgent': false, 'important': false, 'done': false, 'time': 30},
@@ -40,6 +42,33 @@ taskPriorityControllers.controller('DateCtrl', ['$scope', '$routeParams', '$http
             var dest = filterFilter($partTo, !$item)[0];
             $item.urgent = dest.urgent;
             $item.important = dest.important;
+            $log.log($scope.tasks);
+        };
+
+        $scope.editDialog = function(e, task) {
+            dialog = $mdDialog.show({
+                controller: 'DialogCtrl',
+                targetEvent: e,
+                templateUrl: '/views/edit_task_dialog.html',
+                clickOutsideToClose: true,
+                locals: {task: filterFilter($scope.tasks, {'id': task})[0]}
+            });
+        };
+    }
+]);
+
+taskPriorityControllers.controller('DialogCtrl', [
+    '$scope', '$mdDialog', 'task',
+    function($scope, $mdDialog, task) {
+        $scope.task = task;
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+        $scope.save = function() {
+            $mdDialog.hide(true);
         };
     }
 ]);

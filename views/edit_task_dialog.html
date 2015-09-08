@@ -1,0 +1,42 @@
+<md-dialog aria-label="Détails de la tâche" flex>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Détails de la tâche</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="save()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div layout="column">
+        <md-input-container>
+            <label>Libellé de la tâche</label>
+            <input ng-model="task.label" required md-autofocus>
+        </md-input-container>
+        <div layout="row">
+            <md-input-container>
+                <label>Temps prévu (en minutes)</label>
+                <input ng-model="task.time" required>
+            </md-input-container>
+            <md-input-container>
+                <label>Urgent</label>
+                <md-select ng-model="task.urgent">
+                    <md-option ng-value="true">Oui</md-option>
+                    <md-option ng-value="false">Non</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container>
+                <label>Important</label>
+                <md-select ng-model="task.important">
+                    <md-option ng-value="true">Oui</md-option>
+                    <md-option ng-value="false">Non</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </div>
+  </md-dialog-content>
+  <div class="md-actions" layout="row">
+    <md-button class="md-primary" ng-click="save()">Enregistrer</md-button>
+  </div>
+</md-dialog>
