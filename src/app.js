@@ -31,7 +31,10 @@ taskApp.config(['$routeProvider', '$mdThemingProvider',
 taskApp.factory('Task', ['$resource',
     function ($resource) {
         return $resource('/api/tasks/:date', null, {
-            'calendar': {method: 'GET', isArray: true}
+            'calendar': {method: 'GET', isArray: true},
+            'create': {method: 'POST'},
+            'list': {method: 'GET', isArray: true},
+            'update': {method: 'PUT'}
         });
     }
 ]);

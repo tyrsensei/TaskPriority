@@ -1,5 +1,6 @@
 var express = require('express'),
     app = express(),
+    bodyParser = require('body-parser'),
     swig = require('swig'),
     api = require('./api');
 
@@ -9,6 +10,8 @@ app.set('views', __dirname+'/views');
 
 app.set('view cache', false);
 swig.setDefaults({ cache: false, varControls: ['[[', ']]'] });
+
+app.use(bodyParser.json());
 
 app.use('/assets', express.static(__dirname + '/bower_components/'));
 app.use('/src', express.static(__dirname + '/src/'));
@@ -20,8 +23,8 @@ app.get('/', function(req, res) {
 
 app.get('/api/tasks/', api.calendar);
 app.get('/api/tasks/:date', api.tasks);
-app.post('/api/tasks/:date', api.newTask);
-app.put('/api/tasks/:date', api.updateTask);
+app.post('/api/tasks/', api.newTask);
+app.put('/api/tasks/', api.updateTask);
 
 var server = app.listen(3000, function(){
     var address = server.address();

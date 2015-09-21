@@ -1,109 +1,137 @@
-<div flex layout="row" layout-wrap layout-margin layout-fill>
-    <div flex class="md-whiteframe-z4 task-list">
-        <md-toolbar class="md-hue-1">
-            <div class="md-toolbar-tools">
-                <span flex></span>
-                <md-icon>alarm</md-icon>
-                <md-icon>star</md-icon>
-            </div>
-        </md-toolbar>
-        <md-list sv-root="sortable" sv-part="tasksUI" sv-on-sort="onSorted($item, $partTo)">
-            <md-list-item class="md-2-line" ng-repeat="task in tasksUI" sv-element flex>
-                <md-checkbox ng-model="task.done"></md-checkbox>
-                <div layout="row" class="md-list-item-text" flex>
-                    <div layout="row" layout-align="left center">
-                        <md-icon sv-handle>reorder</md-icon>
-                    </div>
-                    <div flex ng-class="{'done-task': task.done}">
-                        <h4>{{ task.label }}</h4>
-                        <p>{{ task.time }} minutes</p>
-                    </div>
-                </div>
-                <md-icon ng-click="editDialog($event, task.id)" class="material-icons md-secondary" aria-label="edit">edit</md-icon>
-                <md-divider></md-divider>
-            </md-list-item>
-        </md-list>
+<md-toolbar class="main-toolbar">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" href="#/">
+            <md-icon md-font-set="material-icons">assignment_late</md-icon>
+        </md-button>
+        <h2><span>TaskPriority - {{date| date : 'dd/MM/yyyy'}}</span></h2>
     </div>
-    <div flex class="md-whiteframe-z4 task-list">
-        <md-toolbar class="md-hue-1">
-            <div class="md-toolbar-tools">
-                <span flex></span>
-                <md-icon class="material-icons md-primary md-hue-2">alarm</md-icon>
-                <md-icon>star</md-icon>
+</md-toolbar>
+<md-content flex layout="column">
+    <div flex layout-padding layout="column">
+        <div flex layout="row" layout-wrap layout-margin layout-fill>
+            <div flex class="md-whiteframe-z4 task-list">
+                <md-toolbar class="md-hue-1">
+                    <div class="md-toolbar-tools">
+                        <span flex></span>
+                        <md-icon>alarm</md-icon>
+                        <md-icon>star</md-icon>
+                    </div>
+                </md-toolbar>
+                <md-list sv-root="sortable" sv-part="tasksUI" sv-on-sort="onSorted($item)">
+                    <md-list-item class="md-2-line" ng-repeat="task in tasksUI" sv-element flex>
+                        <md-checkbox ng-model="task.done" ng-change="updateTask(task)"></md-checkbox>
+                        <div layout="row" class="md-list-item-text" flex>
+                            <div layout="row" layout-align="left center">
+                                <md-icon sv-handle>reorder</md-icon>
+                            </div>
+                            <div flex ng-class="{'done-task': task.done}">
+                                <h4>{{ task.label }}</h4>
+                                <p>{{ task.time }} minutes</p>
+                            </div>
+                        </div>
+                        <md-icon ng-click="editDialog($event, task._id)" class="material-icons md-secondary" aria-label="edit">edit</md-icon>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
             </div>
-        </md-toolbar>
-        <md-list sv-root="sortable" sv-part="tasksuI" sv-on-sort="onSorted($item, $partTo)">
-            <md-list-item class="md-2-line" ng-repeat="task in tasksuI" sv-element>
-                <md-checkbox ng-model="task.done"></md-checkbox>
-                <div layout="row" class="md-list-item-text" flex>
-                    <div layout="row" layout-align="left center">
-                        <md-icon sv-handle>reorder</md-icon>
+            <div flex class="md-whiteframe-z4 task-list">
+                <md-toolbar class="md-hue-1">
+                    <div class="md-toolbar-tools">
+                        <span flex></span>
+                        <md-icon class="material-icons md-primary md-hue-2">alarm</md-icon>
+                        <md-icon>star</md-icon>
                     </div>
-                    <div flex ng-class="{'done-task': task.done}">
-                        <h4>{{ task.label }}</h4>
-                        <p>{{ task.time }} minutes</p>
-                    </div>
-                </div>
-                <md-icon ng-click="editDialog($event, task)" class="material-icons md-secondary" aria-label="edit">edit</md-icon>
-                <md-divider></md-divider>
-            </md-list-item>
-        </md-list>
-    </div>
-</div>
-<div flex layout="row" layout-wrap layout-margin layout-fill>
-    <div flex class="md-whiteframe-z4 task-list">
-        <md-toolbar class="md-hue-1">
-            <div class="md-toolbar-tools">
-                <span flex></span>
-                <md-icon>alarm</md-icon>
-                <md-icon class="material-icons md-primary md-hue-2">star</md-icon>
+                </md-toolbar>
+                <md-list sv-root="sortable" sv-part="tasksuI" sv-on-sort="onSorted($item)">
+                    <md-list-item class="md-2-line" ng-repeat="task in tasksuI" sv-element>
+                        <md-checkbox ng-model="task.done"></md-checkbox>
+                        <div layout="row" class="md-list-item-text" flex>
+                            <div layout="row" layout-align="left center">
+                                <md-icon sv-handle>reorder</md-icon>
+                            </div>
+                            <div flex ng-class="{'done-task': task.done}">
+                                <h4>{{ task.label }}</h4>
+                                <p>{{ task.time }} minutes</p>
+                            </div>
+                        </div>
+                        <md-icon ng-click="editDialog($event, task._id)" class="material-icons md-secondary" aria-label="edit">edit</md-icon>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
             </div>
-        </md-toolbar>
-        <md-list sv-root="sortable" sv-part="tasksUi" sv-on-sort="onSorted($item, $partTo)">
-            <md-list-item class="md-2-line" ng-repeat="task in tasksUi" sv-element>
-                <md-checkbox ng-model="task.done"></md-checkbox>
-                <div layout="row" class="md-list-item-text" flex>
-                    <div layout="row" layout-align="left center">
-                        <md-icon sv-handle>reorder</md-icon>
+        </div>
+        <div flex layout="row" layout-wrap layout-margin layout-fill>
+            <div flex class="md-whiteframe-z4 task-list">
+                <md-toolbar class="md-hue-1">
+                    <div class="md-toolbar-tools">
+                        <span flex></span>
+                        <md-icon>alarm</md-icon>
+                        <md-icon class="material-icons md-primary md-hue-2">star</md-icon>
                     </div>
-                    <div flex ng-class="{'done-task': task.done}">
-                        <h4>{{ task.label }}</h4>
-                        <p>{{ task.time }} minutes</p>
-                    </div>
-                </div>
-                <md-icon ng-click="editDialog($event, task.id)" class="material-icons md-secondary" aria-label="edit">edit</md-icon>
-                <md-divider></md-divider>
-            </md-list-item>
-        </md-list>
-    </div>
-    <div flex class="md-whiteframe-z4 task-list">
-        <md-toolbar class="md-hue-1">
-            <div class="md-toolbar-tools">
-                <span flex></span>
-                <md-icon class="material-icons md-primary md-hue-2">alarm</md-icon>
-                <md-icon class="material-icons md-primary md-hue-2">star</md-icon>
+                </md-toolbar>
+                <md-list sv-root="sortable" sv-part="tasksUi" sv-on-sort="onSorted($item)">
+                    <md-list-item class="md-2-line" ng-repeat="task in tasksUi" sv-element>
+                        <md-checkbox ng-model="task.done"></md-checkbox>
+                        <div layout="row" class="md-list-item-text" flex>
+                            <div layout="row" layout-align="left center">
+                                <md-icon sv-handle>reorder</md-icon>
+                            </div>
+                            <div flex ng-class="{'done-task': task.done}">
+                                <h4>{{ task.label }}</h4>
+                                <p>{{ task.time }} minutes</p>
+                            </div>
+                        </div>
+                        <md-icon ng-click="editDialog($event, task._id)" class="material-icons md-secondary" aria-label="edit">edit</md-icon>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
             </div>
-        </md-toolbar>
-        <md-list sv-root="sortable" sv-part="tasksui" sv-on-sort="onSorted($item, $partTo)">
-            <md-list-item class="md-2-line" ng-repeat="task in tasksui" sv-element>
-                <md-checkbox ng-model="task.done"></md-checkbox>
-                <div layout="row" class="md-list-item-text" flex>
-                    <div layout="row" layout-align="left center">
-                        <md-icon sv-handle>reorder</md-icon>
+            <div flex class="md-whiteframe-z4 task-list">
+                <md-toolbar class="md-hue-1">
+                    <div class="md-toolbar-tools">
+                        <span flex></span>
+                        <md-icon class="material-icons md-primary md-hue-2">alarm</md-icon>
+                        <md-icon class="material-icons md-primary md-hue-2">star</md-icon>
                     </div>
-                    <div flex ng-class="{'done-task': task.done}">
-                        <h4>{{ task.label }}</h4>
-                        <p>{{ task.time }} minutes</p>
-                    </div>
+                </md-toolbar>
+                <md-list sv-root="sortable" sv-part="tasksui" sv-on-sort="onSorted($item)">
+                    <md-list-item class="md-2-line" ng-repeat="task in tasksui" sv-element>
+                        <md-checkbox ng-model="task.done"></md-checkbox>
+                        <div layout="row" class="md-list-item-text" flex>
+                            <div layout="row" layout-align="left center">
+                                <md-icon sv-handle>reorder</md-icon>
+                            </div>
+                            <div flex ng-class="{'done-task': task.done}">
+                                <h4>{{ task.label }}</h4>
+                                <p>{{ task.time }} minutes</p>
+                            </div>
+                        </div>
+                        <md-icon ng-click="editDialog($event, task._id)" class="material-icons md-secondary" aria-label="edit">edit</md-icon>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
+            </div>
+        </div>
+        <md-fab-speed-dial class="md-fab-fixed-top-right md-fling" md-direction="down">
+            <md-fab-trigger>
+                <md-button aria-label="menu" class="md-fab md-warn">
+                    <md-icon>menu</md-icon>
+                </md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+                <div>
+                    <md-button aria-label="Ajouter une tâche" class="md-fab md-mini" ng-click="editDialog($event)">
+                        <md-tooltip md-direction="left">Ajouter une tâche</md-tooltip>
+                        <md-icon>add</md-icon>
+                    </md-button>
                 </div>
-                <md-icon ng-click="editDialog($event, task)" class="material-icons md-secondary" aria-label="edit">edit</md-icon>
-                <md-divider></md-divider>
-            </md-list-item>
-        </md-list>
+                <div>
+                    <md-button aria-label="Reporter les tâches non terminées" class="md-fab md-mini" ng-click="">
+                        <md-tooltip md-direction="left">Reporter les tâches non terminées</md-tooltip>
+                        <md-icon>skip_next</md-icon>
+                    </md-button>
+                </div>
+            </md-fab-actions>
+        </md-fab-speed-dial>
     </div>
-</div>
-<div class="md-fab-fixed-top-right" flex layout="row" layout-align="end center" style="">
-    <md-button class="md-fab" ng-click="editDialog($event)">
-        <md-icon>add</md-icon>
-    </md-button>
-</div>
+</md-content>
