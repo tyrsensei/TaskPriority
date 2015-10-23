@@ -75,7 +75,13 @@ taskPriorityControllers.controller('DateCtrl', [
             } else {
                 options.locals.currentTask = undefined;
             }
-            dialog = $mdDialog.show(options);
+            dialog = $mdDialog.show(options).then(function(modifiedTask){
+                $log.log($scope.tasks);
+                $log.log($scope.tasksUI);
+                $log.log($scope.tasksuI);
+                $log.log($scope.tasksUi);
+                $log.log($scope.tasksui);
+            });
         };
 
         // Mise à jour de la tâche
@@ -104,7 +110,7 @@ taskPriorityControllers.controller('DialogCtrl', [
             } else {
                 Task.update($scope.task);
             }
-            $mdDialog.hide(true);
+            $mdDialog.hide($scope.task);
         };
     }
 ]);

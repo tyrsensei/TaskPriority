@@ -38,7 +38,7 @@
                 <md-toolbar class="md-hue-1">
                     <div class="md-toolbar-tools">
                         <span flex></span>
-                        <md-icon class="material-icons md-primary md-hue-2">alarm</md-icon>
+                        <md-icon style="color:rgb(156,39,176);">alarm</md-icon>
                         <md-icon>star</md-icon>
                     </div>
                 </md-toolbar>
@@ -66,7 +66,7 @@
                     <div class="md-toolbar-tools">
                         <span flex></span>
                         <md-icon>alarm</md-icon>
-                        <md-icon class="material-icons md-primary md-hue-2">star</md-icon>
+                        <md-icon style="color:rgb(156,39,176);">star</md-icon>
                     </div>
                 </md-toolbar>
                 <md-list sv-root="sortable" sv-part="tasksUi" sv-on-sort="onSorted($item)">
@@ -90,8 +90,8 @@
                 <md-toolbar class="md-hue-1">
                     <div class="md-toolbar-tools">
                         <span flex></span>
-                        <md-icon class="material-icons md-primary md-hue-2">alarm</md-icon>
-                        <md-icon class="material-icons md-primary md-hue-2">star</md-icon>
+                        <md-icon style="color:rgb(156,39,176);">alarm</md-icon>
+                        <md-icon style="color:rgb(156,39,176);">star</md-icon>
                     </div>
                 </md-toolbar>
                 <md-list sv-root="sortable" sv-part="tasksui" sv-on-sort="onSorted($item)">
@@ -112,7 +112,7 @@
                 </md-list>
             </div>
         </div>
-        <md-fab-speed-dial class="md-fab-fixed-top-right md-fling" md-direction="down">
+        <md-fab-speed-dial class="md-fab-fixed-top-right md-fling" md-direction="down" ng-init="menuOpen = false" md-open="menuOpen" ng-mouseenter="menuOpen=true" ng-mouseleave="menuOpen=false">
             <md-fab-trigger>
                 <md-button aria-label="menu" class="md-fab md-warn">
                     <md-icon>menu</md-icon>
