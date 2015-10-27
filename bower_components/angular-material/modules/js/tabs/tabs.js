@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.0.0-rc1
+ * v0.11.4
  */
 (function( window, angular, undefined ){
 "use strict";
@@ -688,7 +688,7 @@ function MdTabsController ($scope, $element, $window, $mdConstant, $mdTabInkRipp
   function shouldPaginate () {
     if (ctrl.noPagination || !loaded) return false;
     var canvasWidth = $element.prop('clientWidth');
-    angular.forEach(getElements().dummies, function (tab) { canvasWidth -= tab.offsetWidth; });
+    angular.forEach(elements.dummies, function (tab) { canvasWidth -= tab.offsetWidth; });
     return canvasWidth < 0;
   }
 
@@ -742,7 +742,7 @@ function MdTabsController ($scope, $element, $window, $mdConstant, $mdTabInkRipp
 
   function updatePagingWidth() {
     var width = 1;
-    angular.forEach(getElements().dummies, function (element) { width += element.offsetWidth; });
+    angular.forEach(elements.dummies, function (element) { width += element.offsetWidth; });
     angular.element(elements.paging).css('width', width + 'px');
   }
 
@@ -781,11 +781,11 @@ function MdTabsController ($scope, $element, $window, $mdConstant, $mdTabInkRipp
   }
 
   /**
-   * This is used to forward focus to dummy elements.  This method is necessary to avoid animation
+   * This is used to forward focus to dummy elements.  This method is necessary to avoid aniation
    * issues when attempting to focus an item that is out of view.
    */
   function redirectFocus () {
-    getElements().dummies[ ctrl.focusIndex ].focus();
+    elements.dummies[ ctrl.focusIndex ].focus();
   }
 
   /**

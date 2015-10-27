@@ -133,5 +133,13 @@
                 </div>
             </md-fab-actions>
         </md-fab-speed-dial>
+        <md-button href="#/{{ previousDay | date : 'yyyy-MM-dd' }}" class="md-fab md-mini md-raised navigation-button navigation-button-left">
+            <md-tooltip md-direction="right">Jour précédent</md-tooltip>
+            <md-icon>navigate_before</md-icon>
+        </md-button>
+        <md-button href="#/{{ nextDay | date : 'yyyy-MM-dd' }}" class="md-fab md-mini md-raised navigation-button navigation-button-right">
+            <md-tooltip md-direction="left">Jour suivant</md-tooltip>
+            <md-icon>navigate_next</md-icon>
+        </md-button>
     </div>
 </md-content>

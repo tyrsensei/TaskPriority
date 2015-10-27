@@ -3,7 +3,7 @@
         <md-button class="md-icon-button" href="#/">
             <md-icon md-font-set="material-icons">assignment_late</md-icon>
         </md-button>
-        <h2><span>TaskPriority</span></h2>
+        <h2><span>TaskPriority - {{ monthToDate | date:'MMMM yyyy' }}</span></h2>
     </div>
 </md-toolbar>
 <md-content flex layout="column">
@@ -19,4 +19,10 @@
             </md-grid-tile>
         </md-grid-list>
     </div>
+    <md-button ng-click="getCalendar(month-1)" class="md-fab md-mini md-raised navigation-button navigation-button-left">
+        <md-icon>navigate_before</md-icon>
+    </md-button>
+    <md-button ng-click="getCalendar(month+1)" class="md-fab md-mini md-raised navigation-button navigation-button-right">
+        <md-icon>navigate_next</md-icon>
+    </md-button>
 </md-content>

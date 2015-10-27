@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.0.0-rc1
+ * v0.11.4
  */
 goog.provide('ng.material.components.select');
 goog.require('ng.material.components.backdrop');
@@ -496,11 +496,8 @@ function SelectMenuDirective($parse, $mdUtil, $mdTheming) {
     }, true);
 
     var deregisterCollectionWatch;
-    var defaultIsEmpty;
     self.setMultiple = function(isMultiple) {
       var ngModel = self.ngModel;
-      defaultIsEmpty = defaultIsEmpty || ngModel.$isEmpty;
-
       self.isMultiple = isMultiple;
       if (deregisterCollectionWatch) deregisterCollectionWatch();
 
@@ -514,10 +511,6 @@ function SelectMenuDirective($parse, $mdUtil, $mdTheming) {
           if (validateArray(value)) renderMultiple(value);
           self.ngModel.$setPristine();
         });
-
-        ngModel.$isEmpty = function(value) {
-          return !value || value.length === 0;
-        };
       } else {
         delete ngModel.$validators['md-multiple'];
         ngModel.$render = renderSingular;
