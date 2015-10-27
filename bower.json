@@ -13,7 +13,7 @@
   "dependencies": {
     "angular": "latest",
     "angular-i18n": "~1.4.7",
-    "angular-material": "latest",
+    "angular-material": "1.0.0-rc1",
     "angular-resource": "~1.4.4",
     "angular-route": "latest",
     "angular-sortable-view": "~0.0.13",
