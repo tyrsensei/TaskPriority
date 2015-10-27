@@ -16,8 +16,8 @@ var taskSchema = mongoose.Schema({
 var Task = mongoose.model('Task', taskSchema);
 
 exports.calendar = function(req, res) {
-    var premier_jour = moment().startOf('month').startOf('week').startOf('day');
-    var dernier_jour = moment().endOf('month').endOf('week').endOf('day');
+    var premier_jour = moment().month(req.query.month).startOf('month').startOf('week').startOf('day');
+    var dernier_jour = moment().month(req.query.month).endOf('month').endOf('week').endOf('day');
 
     Task.find({
         date: {$gte: premier_jour.toDate(), $lte: dernier_jour.toDate()}

@@ -9,11 +9,11 @@ taskPriorityControllers.controller('CalendarCtrl', ['$scope', '$http', '$log', '
         $scope.getCalendar = function(month) {
             $scope.month = month;
             $scope.monthToDate = moment().month($scope.month).toDate();
-            var jour_courant = moment().month($scope.month).startOf('month').startOf('week').startOf('day');
-            var dernier_jour = moment().month($scope.month).endOf('month').endOf('week').endOf('day');
+            var jour_courant = moment().utc().month($scope.month).startOf('month').startOf('week').startOf('day');
+            var dernier_jour = moment().utc().month($scope.month).endOf('month').endOf('week').endOf('day');
 
 
-            Task.calendar(null, function(data){
+            Task.calendar({'month': $scope.month}, function(data){
                 $scope.days = [];
                 var tasks = [];
                 var tasksOfDay;
@@ -28,7 +28,7 @@ taskPriorityControllers.controller('CalendarCtrl', ['$scope', '$http', '$log', '
                     var totalTime = 0;
                     tasksOfDay = filterFilter(tasks, {'date': jour_courant.toJSON()});
                     angular.forEach(tasksOfDay, function(item){
-                        totalTime+= parseInt(item.time);
+                        totalTime+= item.time;
                     });
                     $scope.days.push({date: jour_courant.clone().toDate(), 'tasks': tasksOfDay.length, 'time': totalTime});
 
