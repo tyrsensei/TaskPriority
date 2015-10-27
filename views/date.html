@@ -9,7 +9,7 @@
 <md-content flex layout="column">
     <div flex layout-padding layout="column">
         <div flex layout="row" layout-wrap layout-margin layout-fill>
-            <div flex class="md-whiteframe-z4 task-list">
+            <div flex class="md-whiteframe-z4 task-list" id="frame-UI">
                 <md-toolbar class="md-hue-1">
                     <div class="md-toolbar-tools">
                         <span flex></span>
@@ -22,7 +22,7 @@
                         <md-checkbox ng-model="task.done" ng-change="updateTask(task)"></md-checkbox>
                         <div layout="row" class="md-list-item-text" flex>
                             <div layout="row" layout-align="left center">
-                                <md-icon sv-handle>reorder</md-icon>
+                                <md-icon class="md-primary md-hue-3" sv-handle>reorder</md-icon>
                             </div>
                             <div flex ng-class="{'done-task': task.done}">
                                 <h4>{{ task.label }}</h4>
@@ -34,7 +34,7 @@
                     </md-list-item>
                 </md-list>
             </div>
-            <div flex class="md-whiteframe-z4 task-list">
+            <div flex class="md-whiteframe-z4 task-list" id="frame-uI">
                 <md-toolbar class="md-hue-1">
                     <div class="md-toolbar-tools">
                         <span flex></span>
@@ -44,10 +44,10 @@
                 </md-toolbar>
                 <md-list sv-root="sortable" sv-part="tasksuI" sv-on-sort="onSorted($item)">
                     <md-list-item class="md-2-line" ng-repeat="task in tasksuI" sv-element>
-                        <md-checkbox ng-model="task.done"></md-checkbox>
+                        <md-checkbox ng-model="task.done" ng-change="updateTask(task)"></md-checkbox>
                         <div layout="row" class="md-list-item-text" flex>
                             <div layout="row" layout-align="left center">
-                                <md-icon sv-handle>reorder</md-icon>
+                                <md-icon class="md-primary md-hue-3" sv-handle>reorder</md-icon>
                             </div>
                             <div flex ng-class="{'done-task': task.done}">
                                 <h4>{{ task.label }}</h4>
@@ -61,7 +61,7 @@
             </div>
         </div>
         <div flex layout="row" layout-wrap layout-margin layout-fill>
-            <div flex class="md-whiteframe-z4 task-list">
+            <div flex class="md-whiteframe-z4 task-list" id="frame-Ui">
                 <md-toolbar class="md-hue-1">
                     <div class="md-toolbar-tools">
                         <span flex></span>
@@ -71,10 +71,10 @@
                 </md-toolbar>
                 <md-list sv-root="sortable" sv-part="tasksUi" sv-on-sort="onSorted($item)">
                     <md-list-item class="md-2-line" ng-repeat="task in tasksUi" sv-element>
-                        <md-checkbox ng-model="task.done"></md-checkbox>
+                        <md-checkbox ng-model="task.done" ng-change="updateTask(task)"></md-checkbox>
                         <div layout="row" class="md-list-item-text" flex>
                             <div layout="row" layout-align="left center">
-                                <md-icon sv-handle>reorder</md-icon>
+                                <md-icon class="md-primary md-hue-3" sv-handle>reorder</md-icon>
                             </div>
                             <div flex ng-class="{'done-task': task.done}">
                                 <h4>{{ task.label }}</h4>
@@ -86,7 +86,7 @@
                     </md-list-item>
                 </md-list>
             </div>
-            <div flex class="md-whiteframe-z4 task-list">
+            <div flex class="md-whiteframe-z4 task-list" id="frame-ui">
                 <md-toolbar class="md-hue-1">
                     <div class="md-toolbar-tools">
                         <span flex></span>
@@ -96,10 +96,10 @@
                 </md-toolbar>
                 <md-list sv-root="sortable" sv-part="tasksui" sv-on-sort="onSorted($item)">
                     <md-list-item class="md-2-line" ng-repeat="task in tasksui" sv-element>
-                        <md-checkbox ng-model="task.done"></md-checkbox>
+                        <md-checkbox ng-model="task.done" ng-change="updateTask(task)"></md-checkbox>
                         <div layout="row" class="md-list-item-text" flex>
                             <div layout="row" layout-align="left center">
-                                <md-icon sv-handle>reorder</md-icon>
+                                <md-icon class="md-primary md-hue-3" sv-handle>reorder</md-icon>
                             </div>
                             <div flex ng-class="{'done-task': task.done}">
                                 <h4>{{ task.label }}</h4>
@@ -120,13 +120,13 @@
             </md-fab-trigger>
             <md-fab-actions>
                 <div>
-                    <md-button aria-label="Ajouter une tâche" class="md-fab md-mini" ng-click="editDialog($event)">
+                    <md-button id="new-task" aria-label="Ajouter une tâche" class="md-fab md-mini" ng-click="editDialog($event)">
                         <md-tooltip md-direction="left">Ajouter une tâche</md-tooltip>
                         <md-icon>add</md-icon>
                     </md-button>
                 </div>
                 <div>
-                    <md-button aria-label="Reporter les tâches non terminées" class="md-fab md-mini" ng-click="">
+                    <md-button aria-label="Reporter les tâches non terminées" class="md-fab md-mini" ng-click="postponeTask($event)">
                         <md-tooltip md-direction="left">Reporter les tâches non terminées</md-tooltip>
                         <md-icon>skip_next</md-icon>
                     </md-button>

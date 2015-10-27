@@ -1,19 +1,33 @@
 var taskPriorityControllers = angular.module('TaskPriorityControllers', []);
 
-taskPriorityControllers.controller('CalendarCtrl', ['$scope', '$http', '$log', 'Task',
-    function($scope, $http, $log, Task) {
+taskPriorityControllers.controller('CalendarCtrl', ['$scope', '$http', '$log', 'Task', 'filterFilter',
+    function($scope, $http, $log, Task, filterFilter) {
         var jour_courant = moment().startOf('month').startOf('week').startOf('day');
         var dernier_jour = moment().endOf('month').endOf('week').endOf('day');
 
         $scope.days = [];
 
-        while (!jour_courant.isAfter(dernier_jour, 'day')) {
-            $scope.days.push({date: jour_courant.format('YYYY-MM-DD'), 'tasks': 5, 'time': 180});
+        Task.calendar(null, function(data){
+            var tasks = [];
+            var tasksOfDay = undefined;
 
-            jour_courant.add(1, 'd');
-        }
+            angular.forEach(data, function(item){
+                if (item._id) {
+                    tasks.push(item);
+                }
+            });
 
-        Task.calendar();
+            while (!jour_courant.isAfter(dernier_jour, 'day')) {
+                var totalTime = 0;
+                tasksOfDay = filterFilter(tasks, {'date': jour_courant.toJSON()});
+                angular.forEach(tasksOfDay, function(item){
+                    totalTime+= parseInt(item.time);
+                });
+                $scope.days.push({date: jour_courant.clone().toDate(), 'tasks': tasksOfDay.length, 'time': totalTime});
+
+                jour_courant.add(1, 'd');
+            }
+        });
     }
 ]);
 
@@ -21,8 +35,20 @@ taskPriorityControllers.controller('DateCtrl', [
     '$scope', '$routeParams', '$http', '$log', 'filterFilter', '$mdDialog', 'Task',
     function($scope, $routeParams, $http, $log, filterFilter, $mdDialog, Task) {
         var dialog;
-        $scope.date = $routeParams.date;
+        $scope.date = new Date($routeParams.date);
         $scope.tasks = [];
+        $scope.tasksUI = [];
+        $scope.tasksuI = [];
+        $scope.tasksUi = [];
+        $scope.tasksui = [];
+
+        $scope.$watch('tasks', function(){
+            $log.log('watch !');
+            $scope.tasksUI = filterFilter($scope.tasks, {'urgent': true, 'important': true});
+            $scope.tasksuI = filterFilter($scope.tasks, {'urgent': false, 'important': true});
+            $scope.tasksUi = filterFilter($scope.tasks, {'urgent': true, 'important': false});
+            $scope.tasksui = filterFilter($scope.tasks, {'urgent': false, 'important': false});
+        }, true);
 
         // Récupération de la liste des tâches du jour
         Task.list({date: $scope.date}, function(data){
@@ -31,10 +57,6 @@ taskPriorityControllers.controller('DateCtrl', [
                     $scope.tasks.push(item);
                 }
             });
-            $scope.tasksUI = filterFilter($scope.tasks, {'urgent': true, 'important': true});
-            $scope.tasksuI = filterFilter($scope.tasks, {'urgent': false, 'important': true});
-            $scope.tasksUi = filterFilter($scope.tasks, {'urgent': true, 'important': false});
-            $scope.tasksui = filterFilter($scope.tasks, {'urgent': false, 'important': false});
         });
 
         // Déplacement d'une tâche
@@ -55,8 +77,8 @@ taskPriorityControllers.controller('DateCtrl', [
                 $item.urgent = false;
                 $item.important = false;
             }
+
             $scope.updateTask($item);
-            $log.log($scope.tasks);
         };
 
         // Création/Modification d'une tâche
@@ -71,16 +93,36 @@ taskPriorityControllers.controller('DateCtrl', [
                 }
             };
             if (undefined !== task) {
+                options.closeTo = 'body';
+                options.openFrom = 'body';
                 options.locals.currentTask = filterFilter($scope.tasks, {'_id': task})[0];
             } else {
-                options.locals.currentTask = undefined;
+                options.locals.currentTask = {};
             }
-            dialog = $mdDialog.show(options).then(function(modifiedTask){
-                $log.log($scope.tasks);
-                $log.log($scope.tasksUI);
-                $log.log($scope.tasksuI);
-                $log.log($scope.tasksUi);
-                $log.log($scope.tasksui);
+            dialog = $mdDialog.show(options).then(function(newTask){
+                var existing_index = filterFilter($scope.tasks, {'_id': newTask._id})[0];
+                if (newTask.date != moment($scope.date).toJSON()) {
+                    $scope.tasks.splice(existing_index, 1);
+                }
+                if (existing_index === undefined) {
+                    $scope.tasks.push(newTask);
+                }
+            }, function(error){
+                $log.log('cancel');
+            });
+        };
+
+        // Reporter les tâches non terminées
+        $scope.postponeTask = function(e) {
+            var unfinishedTasks = filterFilter($scope.tasks, {'done': false});
+            var newDate = moment($scope.date);
+            newDate.add(1, 'd');
+
+            angular.forEach(unfinishedTasks, function(item){
+                item.date = newDate.toDate();
+                Task.update(item, function(data){
+                    $scope.tasks.splice($scope.tasks.indexOf(item), 1);
+                });
             });
         };
 
@@ -96,21 +138,24 @@ taskPriorityControllers.controller('DialogCtrl', [
     '$scope', '$mdDialog', 'currentTask', '$log', 'Task', 'date',
     function($scope, $mdDialog, currentTask, $log, Task, date) {
         $scope.task = currentTask;
-        $scope.date = date;
-        $scope.hide = function() {
-            $mdDialog.hide();
-        };
-        $scope.cancel = function() {
-            $mdDialog.cancel();
-        };
+        if (currentTask._id != undefined) {
+            $scope.task.date = new Date($scope.task.date);
+        } else {
+            $scope.task.date = date;
+        }
+
         $scope.save = function() {
             if (undefined === $scope.task._id) {
-                $scope.task.date = $scope.date;
-                Task.create($scope.task);
+                $scope.task.done = false;
+                Task.create($scope.task, function(data){
+                    $scope.task = data;
+                    $mdDialog.hide($scope.task);
+                });
             } else {
-                Task.update($scope.task);
+                Task.update($scope.task, function(data){
+                    $mdDialog.hide(data);
+                });
             }
-            $mdDialog.hide($scope.task);
         };
     }
 ]);

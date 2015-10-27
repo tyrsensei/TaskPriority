@@ -35,11 +35,10 @@ exports.tasks = function(req, res) {
 exports.newTask = function(req, res) {
     var task = new Task(req.body);
     task.save();
-    res.json(req.body);
+    res.json(task);
 };
 
 exports.updateTask = function(req, res) {
-    console.log(req.body);
     var task = Task.findByIdAndUpdate(req.body._id, {
         label: req.body.label,
         urgent: req.body.urgent,
@@ -47,7 +46,7 @@ exports.updateTask = function(req, res) {
         done: req.body.done,
         time: req.body.time,
         date: req.body.date
-    }, {}, function(){
+    }, {}, function(err, data){
         res.json(req.body);
     });
 };

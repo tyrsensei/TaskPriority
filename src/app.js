@@ -8,8 +8,8 @@ var taskApp = angular.module('TaskPriority', [
     'angular-sortable-view'
 ]);
 
-taskApp.config(['$routeProvider', '$mdThemingProvider',
-    function($routeProvider, $mdThemingProvider) {
+taskApp.config(['$routeProvider', '$mdThemingProvider', '$mdDateLocaleProvider',
+    function($routeProvider, $mdThemingProvider, $mdDateLocaleProvider) {
         $routeProvider.
             when('/calendar', {
                 templateUrl: 'views/calendar.html',
@@ -25,6 +25,22 @@ taskApp.config(['$routeProvider', '$mdThemingProvider',
 
         $mdThemingProvider.theme('default')
             .primaryPalette('purple');
+
+        $mdDateLocaleProvider.months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+        $mdDateLocaleProvider.shortMonths = ['janv', 'févr', 'mars', 'avril', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc'];
+        $mdDateLocaleProvider.days = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+        $mdDateLocaleProvider.shortDays = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
+        $mdDateLocaleProvider.firstDayOfWeek = 1;
+        $mdDateLocaleProvider.msgCalendar = 'Calendrier';
+        $mdDateLocaleProvider.msgOpenCalendar = 'Ouvrir le calendrier';
+
+        $mdDateLocaleProvider.parseDate = function(dateString) {
+            var m = moment(dateString, 'L', true);
+            return m.isValid() ? m.toDate() : new Date(NaN);
+        };
+        $mdDateLocaleProvider.formatDate = function(date) {
+            return moment(date).format('L');
+        };
     }
 ]);
 

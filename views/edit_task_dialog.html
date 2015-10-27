@@ -2,10 +2,6 @@
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Détails de la tâche</h2>
-            <span flex></span>
-            <md-button class="md-icon-button" ng-click="hide()">
-                <md-icon>close</md-icon>
-            </md-button>
         </div>
     </md-toolbar>
     <md-dialog-content>
@@ -21,19 +17,22 @@
                         <input ng-model="task.time" required>
                     </md-input-container>
                     <md-input-container>
-                        <label>Urgent</label>
-                        <md-select ng-model="task.urgent" required>
-                            <md-option ng-value="true">Oui</md-option>
-                            <md-option ng-value="false">Non</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <md-input-container>
                         <label>Important</label>
                         <md-select ng-model="task.important" required>
                             <md-option ng-value="true">Oui</md-option>
                             <md-option ng-value="false">Non</md-option>
                         </md-select>
                     </md-input-container>
+                    <md-input-container>
+                        <label>Urgent</label>
+                        <md-select ng-model="task.urgent" required>
+                            <md-option ng-value="true">Oui</md-option>
+                            <md-option ng-value="false">Non</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-datepicker ng-model="task.date" md-placeholder="Date prévue"></md-datepicker>
                 </div>
             </form>
         </div>
