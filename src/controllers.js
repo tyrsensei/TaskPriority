@@ -151,6 +151,8 @@ taskPriorityControllers.controller('DialogCtrl', [
             $scope.task.date = new Date($scope.task.date);
         } else {
             $scope.task.date = date;
+            $scope.task.important = false;
+            $scope.task.urgent = false;
         }
 
         $scope.save = function() {
