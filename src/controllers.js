@@ -62,7 +62,7 @@ taskPriorityControllers.controller('DateCtrl', [
         }, true);
 
         // Récupération de la liste des tâches du jour
-        Task.list({date: $scope.date}, function(data){
+        Task.list({date: moment($scope.date).toJSON()}, function(data){
             angular.forEach(data, function(item){
                 if (item._id) {
                     $scope.tasks.push(item);
