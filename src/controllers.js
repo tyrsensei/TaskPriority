@@ -53,8 +53,13 @@ taskPriorityControllers.controller('DateCtrl', [
         $scope.tasksui = [];
         $scope.previousDay = moment($scope.date).clone().add(-1, 'd').toDate();
         $scope.nextDay = moment($scope.date).clone().add(1, 'd').toDate();
+        $scope.totalTime = 0;
 
         $scope.$watch('tasks', function(){
+            $scope.totalTime = 0;
+            angular.forEach($scope.tasks, function(item){
+                $scope.totalTime += parseInt(item.time);
+            });
             $scope.tasksUI = filterFilter($scope.tasks, {'urgent': true, 'important': true});
             $scope.tasksuI = filterFilter($scope.tasks, {'urgent': false, 'important': true});
             $scope.tasksUi = filterFilter($scope.tasks, {'urgent': true, 'important': false});
