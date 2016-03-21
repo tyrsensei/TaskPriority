@@ -29,17 +29,17 @@ taskApp.config(['$routeProvider', '$mdThemingProvider', '$mdDateLocaleProvider',
         $mdDateLocaleProvider.months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
         $mdDateLocaleProvider.shortMonths = ['janv', 'févr', 'mars', 'avril', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc'];
         $mdDateLocaleProvider.days = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
-        $mdDateLocaleProvider.shortDays = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
+        $mdDateLocaleProvider.shortDays = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'];
         $mdDateLocaleProvider.firstDayOfWeek = 1;
         $mdDateLocaleProvider.msgCalendar = 'Calendrier';
         $mdDateLocaleProvider.msgOpenCalendar = 'Ouvrir le calendrier';
 
         $mdDateLocaleProvider.parseDate = function(dateString) {
-            var m = moment(dateString, 'L', true);
+            var m = moment(dateString, 'YYYY-MM-DD', true);
             return m.isValid() ? m.toDate() : new Date(NaN);
         };
         $mdDateLocaleProvider.formatDate = function(date) {
-            return moment(date).format('L');
+            return moment(date).format('DD/MM/YYYY');
         };
     }
 ]);

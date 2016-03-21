@@ -1,6 +1,6 @@
 //
 // Copyright Kamil Pękala http://github.com/kamilkp
-// angular-sortable-view v0.0.13 2015/01/13
+// angular-sortable-view v0.0.15 2015/01/18
 //
 
 ;(function(window, angular){
@@ -129,7 +129,7 @@
 						$helper = svElement;
 
 						onStart($scope, {
-							$helper: $helper,
+							$helper: {element: $helper},
 							$part: originatingPart.model(originatingPart.scope),
 							$index: originatingIndex,
 							$item: originatingPart.model(originatingPart.scope)[originatingIndex]
@@ -458,10 +458,10 @@
 						html.off('mousemove touchmove', onMousemove);
 						html.off('mouseup touchend', mouseup);
 						html.removeClass('sv-sorting-in-progress');
-						if(moveExecuted)
+						if(moveExecuted){
 							$controllers[0].$drop($scope.$index, opts);
-						else
-							$element.removeClass('sv-visibility-hidden');
+						}
+						$element.removeClass('sv-visibility-hidden');
 					});
 
 					// onMousemove(e);

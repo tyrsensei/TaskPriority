@@ -32,12 +32,12 @@
                     </md-input-container>
                 </div>
                 <div layout="row">
-                    <md-datepicker ng-model="task.date" md-placeholder="Date prévue"></md-datepicker>
+                    <md-datepicker ng-model="date" md-placeholder="Date prévue"></md-datepicker>
                 </div>
             </form>
         </div>
     </md-dialog-content>
-    <div class="md-actions" layout="row">
+    <md-dialog-actions layout="row">
         <md-button class="md-primary" ng-click="save()" ng-disabled="taskForm.$invalid">Enregistrer</md-button>
-    </div>
+    </md-dialog-actions>
 </md-dialog>

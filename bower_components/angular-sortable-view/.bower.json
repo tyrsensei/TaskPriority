@@ -1,6 +1,6 @@
 {
   "name": "angular-sortable-view",
-  "version": "0.0.13",
+  "version": "0.0.15",
   "homepage": "http://kamilkp.github.io/angular-sortable-view/",
   "authors": [
     "Kamil Pękala <kamilkp@gmail.com>"
@@ -24,14 +24,13 @@
     "tests",
     "lib"
   ],
-  "_release": "0.0.13",
+  "_release": "0.0.15",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.13",
-    "commit": "187250cb1cfbd25096185049bded7bcedeab4dbd"
+    "tag": "v0.0.15",
+    "commit": "766fc077e3c72ba069e7bc14c5d5252542523f42"
   },
   "_source": "https://github.com/kamilkp/angular-sortable-view.git",
-  "_target": "~0.0.13",
-  "_originalSource": "angular-sortable-view",
-  "_direct": true
+  "_target": "*",
+  "_originalSource": "angular-sortable-view"
 }

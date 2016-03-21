@@ -3,12 +3,12 @@ var taskPriorityControllers = angular.module('TaskPriorityControllers', []);
 taskPriorityControllers.controller('CalendarCtrl', ['$scope', '$http', '$log', 'Task', 'filterFilter',
     function($scope, $http, $log, Task, filterFilter) {
         $scope.days = [];
-        $scope.month = moment().month();
-        $scope.monthToDate = moment().month($scope.month).toDate();
+        $scope.month = moment().utc().month();
+        $scope.monthToDate = moment().utc().month($scope.month).toDate();
 
         $scope.getCalendar = function(month) {
             $scope.month = month;
-            $scope.monthToDate = moment().month($scope.month).toDate();
+            $scope.monthToDate = moment().utc().month($scope.month).toDate();
             var jour_courant = moment().utc().month($scope.month).startOf('month').startOf('week').startOf('day');
             var dernier_jour = moment().utc().month($scope.month).endOf('month').endOf('week').endOf('day');
 
@@ -26,11 +26,11 @@ taskPriorityControllers.controller('CalendarCtrl', ['$scope', '$http', '$log', '
 
                 while (!jour_courant.isAfter(dernier_jour, 'day')) {
                     var totalTime = 0;
-                    tasksOfDay = filterFilter(tasks, {'date': jour_courant.toJSON()});
+                    tasksOfDay = filterFilter(tasks, {'date': jour_courant.format('YYYY-MM-DD')});
                     angular.forEach(tasksOfDay, function(item){
                         totalTime+= item.time;
                     });
-                    $scope.days.push({date: jour_courant.clone().toDate(), 'tasks': tasksOfDay.length, 'time': totalTime});
+                    $scope.days.push({date: jour_courant.format('YYYY-MM-DD'), 'tasks': tasksOfDay.length, 'time': totalTime});
 
                     jour_courant.add(1, 'd');
                 }
@@ -45,7 +45,7 @@ taskPriorityControllers.controller('DateCtrl', [
     '$scope', '$routeParams', '$http', '$log', 'filterFilter', '$mdDialog', 'Task',
     function($scope, $routeParams, $http, $log, filterFilter, $mdDialog, Task) {
         var dialog;
-        $scope.date = new Date($routeParams.date);
+        $scope.date = $routeParams.date;
         $scope.tasks = [];
         $scope.tasksUI = [];
         $scope.tasksuI = [];
@@ -67,7 +67,7 @@ taskPriorityControllers.controller('DateCtrl', [
         }, true);
 
         // Récupération de la liste des tâches du jour
-        Task.list({date: moment($scope.date).toJSON()}, function(data){
+        Task.list({date: moment($scope.date).format('YYYY-MM-DD')}, function(data){
             angular.forEach(data, function(item){
                 if (item._id) {
                     $scope.tasks.push(item);
@@ -120,7 +120,7 @@ taskPriorityControllers.controller('DateCtrl', [
                 if (existing_index === undefined) {
                     $scope.tasks.push(newTask);
                 }
-                if (newTask.date != moment($scope.date).clone().toJSON()) {
+                if (newTask.date != $scope.date) {
                     $scope.tasks.splice($scope.tasks.indexOf(existing_index), 1);
                 }
             });
@@ -133,7 +133,7 @@ taskPriorityControllers.controller('DateCtrl', [
             newDate.add(1, 'd');
 
             angular.forEach(unfinishedTasks, function(item){
-                item.date = newDate.toDate();
+                item.date = newDate.format('YYYY-MM-DD');
                 Task.update(item, function(data){
                     $scope.tasks.splice($scope.tasks.indexOf(item), 1);
                 });
@@ -151,16 +151,16 @@ taskPriorityControllers.controller('DateCtrl', [
 taskPriorityControllers.controller('DialogCtrl', [
     '$scope', '$mdDialog', 'currentTask', '$log', 'Task', 'date',
     function($scope, $mdDialog, currentTask, $log, Task, date) {
-        $scope.task = currentTask;
-        if (currentTask._id !== undefined) {
-            $scope.task.date = new Date($scope.task.date);
-        } else {
-            $scope.task.date = date;
-            $scope.task.important = false;
-            $scope.task.urgent = false;
+        if (currentTask._id === undefined) {
+            currentTask.date = date;
+            currentTask.important = false;
+            currentTask.urgent = false;
         }
+        $scope.task = currentTask;
+        $scope.date = new Date($scope.task.date);
 
         $scope.save = function() {
+            $scope.task.date = moment($scope.date).format('YYYY-MM-DD');
             if (undefined === $scope.task._id) {
                 $scope.task.done = false;
                 Task.create($scope.task, function(data){

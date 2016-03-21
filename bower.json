@@ -12,11 +12,14 @@
   ],
   "dependencies": {
     "angular": "latest",
-    "angular-i18n": "~1.4.7",
-    "angular-material": "1.0.0-rc1",
-    "angular-resource": "~1.4.4",
+    "angular-i18n": "latest",
+    "angular-material": "latest",
+    "angular-resource": "latest",
     "angular-route": "latest",
-    "angular-sortable-view": "~0.0.13",
-    "moment": "~2.10.6"
+    "angular-sortable-view": "latest",
+    "moment": "latest"
+  },
+  "resolutions": {
+    "angular": "latest"
   }
 }

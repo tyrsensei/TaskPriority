@@ -112,34 +112,34 @@
                 </md-list>
             </div>
         </div>
-        <md-fab-speed-dial class="md-fab-fixed-top-right md-fling" md-direction="down" ng-init="menuOpen = false" md-open="menuOpen" ng-mouseenter="menuOpen=true" ng-mouseleave="menuOpen=false">
-            <md-fab-trigger>
-                <md-button aria-label="menu" class="md-fab md-warn">
-                    <md-icon>menu</md-icon>
-                </md-button>
-            </md-fab-trigger>
-            <md-fab-actions>
-                <div>
-                    <md-button id="new-task" aria-label="Ajouter une tâche" class="md-fab md-mini" ng-click="editDialog($event)">
-                        <md-tooltip md-direction="left">Ajouter une tâche</md-tooltip>
-                        <md-icon>add</md-icon>
-                    </md-button>
-                </div>
-                <div>
-                    <md-button aria-label="Reporter les tâches non terminées" class="md-fab md-mini" ng-click="postponeTask($event)">
-                        <md-tooltip md-direction="left">Reporter les tâches non terminées</md-tooltip>
-                        <md-icon>skip_next</md-icon>
-                    </md-button>
-                </div>
-            </md-fab-actions>
-        </md-fab-speed-dial>
-        <md-button href="#/{{ previousDay | date : 'yyyy-MM-dd' }}" class="md-fab md-mini md-raised navigation-button navigation-button-left">
-            <md-tooltip md-direction="right">Jour précédent</md-tooltip>
-            <md-icon>navigate_before</md-icon>
-        </md-button>
-        <md-button href="#/{{ nextDay | date : 'yyyy-MM-dd' }}" class="md-fab md-mini md-raised navigation-button navigation-button-right">
-            <md-tooltip md-direction="left">Jour suivant</md-tooltip>
-            <md-icon>navigate_next</md-icon>
-        </md-button>
     </div>
+    <md-fab-speed-dial class="md-fab-fixed-top-right md-scale" md-direction="down" ng-init="menuOpen = false" md-open="menuOpen" ng-mouseenter="menuOpen=true" ng-mouseleave="menuOpen=false">
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-warn">
+                <md-icon>menu</md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <div>
+                <md-button id="new-task" aria-label="Ajouter une tâche" class="md-fab md-mini" ng-click="editDialog($event)">
+                    <md-tooltip md-direction="left">Ajouter une tâche</md-tooltip>
+                    <md-icon>add</md-icon>
+                </md-button>
+            </div>
+            <div>
+                <md-button aria-label="Reporter les tâches non terminées" class="md-fab md-mini" ng-click="postponeTask($event)">
+                    <md-tooltip md-direction="left">Reporter les tâches non terminées</md-tooltip>
+                    <md-icon>skip_next</md-icon>
+                </md-button>
+            </div>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+    <md-button href="#/{{ previousDay | date : 'yyyy-MM-dd' }}" class="md-fab md-mini md-raised navigation-button navigation-button-left">
+        <md-tooltip md-direction="right">Jour précédent</md-tooltip>
+        <md-icon>navigate_before</md-icon>
+    </md-button>
+    <md-button href="#/{{ nextDay | date : 'yyyy-MM-dd' }}" class="md-fab md-mini md-raised navigation-button navigation-button-right">
+        <md-tooltip md-direction="left">Jour suivant</md-tooltip>
+        <md-icon>navigate_next</md-icon>
+    </md-button>
 </md-content>
